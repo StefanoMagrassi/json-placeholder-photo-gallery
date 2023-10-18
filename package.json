@@ -9,7 +9,7 @@
     "node": ">= 20.0",
     "npm": ">= 8.0"
   },
-  "main": "index.js",
+  "source": "src/index.html",
   "scripts": {
     "prepare": "husky install",
     "check": "tsc",
@@ -35,6 +35,7 @@
     "lint-staged": "15.0.1",
     "parcel": "2.10.0",
     "prettier": "3.0.3",
+    "process": "0.11.10",
     "typescript": "5.2.2"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",

@@ -1,2 +1,7 @@
 # json-placeholder-photo-gallery
-Just a test...
+
+```sh
+$ npm start
+```
+
+and then open http://localhost:1234
