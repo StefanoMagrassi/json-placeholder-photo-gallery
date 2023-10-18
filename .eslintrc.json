@@ -1,0 +1,37 @@
+{
+  "root": true,
+
+  "plugins": ["react"],
+
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "contactlab/typescript",
+    "prettier"
+  ],
+
+  "rules": {
+    // --- ES6
+    "camelcase": ["error", {"properties": "never", "allow": ["^\\$_"]}],
+    "no-duplicate-imports": "error",
+    "no-void": ["error", {"allowAsStatement": true}], // related to https://typescript-eslint.io/rules/no-floating-promises/#ignorevoid
+
+    // --- Typescript
+    "@typescript-eslint/no-floating-promises": ["error", {"ignoreIIFE": true}],
+
+    // --- React
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+
+    // --- JSDoc
+    "jsdoc/no-multi-asterisks": "off"
+  },
+
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
