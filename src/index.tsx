@@ -1,3 +1,4 @@
+import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import {App} from './App';
 import {HttpServiceLive} from './Http';
@@ -8,4 +9,8 @@ const services = HttpServiceLive();
 
 const AppWithServices = services(App);
 
-root.render(<AppWithServices />);
+root.render(
+  <StrictMode>
+    <AppWithServices />
+  </StrictMode>
+);
