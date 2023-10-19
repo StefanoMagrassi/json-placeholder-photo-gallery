@@ -39,7 +39,11 @@ body {
 }
 
 .meta dd {
-  margin: 0 0 1em 0;
+  margin: 0 0 0.8em 0;
+}
+
+.meta dd:last-of-type {
+  margin-bottom: 0;
 }
 
 .pagination {

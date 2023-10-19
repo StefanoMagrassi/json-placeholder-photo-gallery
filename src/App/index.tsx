@@ -15,6 +15,6 @@ export const App: FC = () => {
       return <h1>Error! {state.error.error.message}</h1>;
 
     case 'Data':
-      return <Photos data={state.model} />;
+      return <Photos model={state.model} />;
   }
 };

@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import type {Photo} from '../DB/model';
+import type {Photo} from '../DB/db';
 
 interface CardProps {
   photo: Photo;
@@ -16,9 +16,9 @@ export const Card: FC<CardProps> = ({photo}) => (
         <dt>Title:</dt>
         <dd>{photo.title}</dd>
         <dt>Album:</dt>
-        <dd></dd>
+        <dd>{photo.album}</dd>
         <dt>User:</dt>
-        <dd></dd>
+        <dd>{photo.user.name}</dd>
       </dl>
     </section>
   </article>
