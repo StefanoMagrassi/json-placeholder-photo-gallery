@@ -2,7 +2,7 @@ import type {Err} from '@contactlab/appy';
 import * as E from 'fp-ts/Either';
 import * as TE from 'fp-ts/TaskEither';
 import {pipe} from 'fp-ts/function';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {HttpService} from '../Http';
 import {Albums, Model, Photos, Users} from './model';
 
@@ -33,10 +33,14 @@ export const useRemote = (): State => {
 
   const [state, setState] = useState<State>({type: 'Idle'});
 
-  useEffect(() => {
-    const {signal, abort} = new AbortController();
+  const controller = useRef<AbortController>();
 
+  useEffect(() => {
     async function run(): Promise<void> {
+      controller.current = new AbortController();
+
+      const {signal} = controller.current;
+
       setState({type: 'Loading'});
 
       const result = await pipe(
@@ -69,7 +73,7 @@ export const useRemote = (): State => {
     void run();
 
     return () => {
-      abort();
+      controller.current?.abort();
     };
   }, [request]);
 
