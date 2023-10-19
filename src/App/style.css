@@ -32,6 +32,7 @@ body {
 
 .thumbnail {
   margin-right: 1em;
+  cursor: pointer;
 }
 
 .meta dt {
@@ -62,4 +63,33 @@ body {
 
 .pagination label {
   margin-right: 0.5em;
+}
+
+.modal {
+  width: 75%;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+
+.modal .image {
+  display: block;
+  margin: 0 auto 1em;
+}
+
+.modal input {
+  width: 100%;
+}
+
+.modal footer {
+  display: flex;
+  justify-content: end;
+}
+
+.modal footer button {
+  margin-left: 0.5em;
+}
+
+::backdrop {
+  background-color: #000;
+  opacity: 0.5;
 }

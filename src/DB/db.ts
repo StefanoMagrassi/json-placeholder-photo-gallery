@@ -1,6 +1,6 @@
 import * as Arr from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
-import {pipe} from 'fp-ts/function';
+import {constVoid, pipe} from 'fp-ts/function';
 import {useState} from 'react';
 import type {Model, Brand} from './model';
 
@@ -18,7 +18,7 @@ export interface Photo extends Omit<OriPhoto, 'albumId'> {
 interface DB {
   state: Photo[];
 
-  updatePhoto: (photo: Photo) => O.Option<Photo>;
+  updatePhoto: (photo: Photo) => void;
 }
 
 export const useDB = (model: Model): DB => {
@@ -32,8 +32,7 @@ export const useDB = (model: Model): DB => {
         state,
         Arr.findIndex(p => p.id === photo.id),
         O.flatMap(i => pipe(state, Arr.updateAt(i, photo))),
-        O.tap(photos => O.some(setState(s => ({...s, photos})))),
-        O.map(() => photo)
+        O.match(constVoid, setState)
       )
   };
 };
