@@ -12,9 +12,11 @@ export const List: FC<ListProps> = ({data, pagination}) => {
   const photos = paginate(data.photos)(pagination);
 
   return (
-    <ul>
+    <ul className="photos">
       {photos.map(photo => (
-        <Card key={photo.id} photo={photo} />
+        <li key={photo.id}>
+          <Card photo={photo} />
+        </li>
       ))}
     </ul>
   );

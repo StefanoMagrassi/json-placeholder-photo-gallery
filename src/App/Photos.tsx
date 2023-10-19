@@ -12,7 +12,7 @@ export const Photos: FC<PhotosProps> = ({data}) => {
   const [pagination, setPagination] = useState<Pagination>({page: 1, size: 10});
 
   return (
-    <section>
+    <main>
       <List data={data} pagination={pagination} />
 
       <Footer
@@ -22,6 +22,6 @@ export const Photos: FC<PhotosProps> = ({data}) => {
         onPageChange={page => setPagination(({size}) => ({page, size}))}
         onSizeChange={size => setPagination(({page}) => ({page, size}))}
       />
-    </section>
+    </main>
   );
 };

@@ -7,12 +7,14 @@ interface CardProps {
 
 export const Card: FC<CardProps> = ({photo}) => (
   <article className="card">
-    <header>
-      <h1>{photo.title}</h1>
-    </header>
-    <section className="card-body">
-      <img className="thumbnail" alt={photo.title} src={photo.thumbnailUrl} />
-      <dl className="card-meta">
+    <aside className="thumbnail">
+      <img alt={photo.title} src={photo.thumbnailUrl} />
+    </aside>
+
+    <section>
+      <dl className="meta">
+        <dt>Title:</dt>
+        <dd>{photo.title}</dd>
         <dt>Album:</dt>
         <dd></dd>
         <dt>User:</dt>

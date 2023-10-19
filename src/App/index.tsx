@@ -1,6 +1,7 @@
 import type {FC} from 'react';
 import {useRemote} from '../DB/remote';
 import {Photos} from './Photos';
+import './style.css';
 
 export const App: FC = () => {
   const state = useRemote();
