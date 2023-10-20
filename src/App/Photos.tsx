@@ -1,12 +1,12 @@
 import {type FC, useState} from 'react';
 import {useDB} from '../DB/db';
 import type {Model} from '../DB/model';
+import type {Pagination} from '../Libs/pagination';
 import {CurrentPhotoProvider} from './Context';
 import {Footer} from './Footer';
 import {Header} from './Header';
 import {List} from './List';
 import {Modal} from './Modal';
-import type {Pagination} from './pagination';
 
 const DEFAULT_PAGINATION: Pagination = {page: 1, size: 10};
 

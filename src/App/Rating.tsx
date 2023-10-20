@@ -2,6 +2,7 @@ import * as O from 'fp-ts/Option';
 import {constVoid, pipe} from 'fp-ts/function';
 import type {FC} from 'react';
 import {type Rating as PhotoRating, RATES} from '../DB/db';
+import {parseF} from '../Libs/number';
 
 declare module 'react' {
   interface CSSProperties {
@@ -57,9 +58,3 @@ const toRating = (value: string): O.Option<PhotoRating> =>
 
 const isRating = (n: number): n is PhotoRating =>
   RATES.indexOf(n as PhotoRating) >= 0;
-
-const parseF = (s: string): O.Option<number> =>
-  pipe(
-    parseFloat(s),
-    O.fromPredicate(v => !isNaN(v))
-  );

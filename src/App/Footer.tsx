@@ -1,6 +1,8 @@
 import * as NEA from 'fp-ts/NonEmptyArray';
-import {pipe} from 'fp-ts/function';
+import * as O from 'fp-ts/Option';
+import {constVoid, pipe} from 'fp-ts/function';
 import type {FC} from 'react';
+import {parse} from '../Libs/number';
 
 interface FooterProps {
   page: number;
@@ -30,7 +32,9 @@ export const Footer: FC<FooterProps> = ({
           <select
             id="page-number"
             value={page}
-            onChange={e => onPageChange(parseInt(e.target.value, 10))}
+            onChange={e =>
+              pipe(e.target.value, parse, O.match(constVoid, onPageChange))
+            }
           >
             {pipe(
               NEA.range(1, pages),
@@ -57,7 +61,9 @@ export const Footer: FC<FooterProps> = ({
         <select
           id="page-size"
           value={size}
-          onChange={e => onSizeChange(parseInt(e.target.value, 10))}
+          onChange={e =>
+            pipe(e.target.value, parse, O.match(constVoid, onSizeChange))
+          }
         >
           {[10, 25, 50].map(v => (
             <option key={`size_${v}`} value={v}>
