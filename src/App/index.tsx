@@ -1,10 +1,12 @@
-import type {FC} from 'react';
-import {useRemote} from '../DB/remote';
-import {Photos} from './Photos';
 import './style.css';
 
+import type {FC} from 'react';
+import {getData} from '../DB/data';
+import {useRemote} from '../Http';
+import {Photos} from './Photos';
+
 export const App: FC = () => {
-  const state = useRemote();
+  const state = useRemote(getData);
 
   switch (state.type) {
     case 'Idle':
@@ -15,6 +17,6 @@ export const App: FC = () => {
       return <h1>Error! {state.error.error.message}</h1>;
 
     case 'Data':
-      return <Photos model={state.model} />;
+      return <Photos model={state.data} />;
   }
 };
