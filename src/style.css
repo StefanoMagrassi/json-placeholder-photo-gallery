@@ -77,10 +77,6 @@ body {
   margin: 0 auto 1em;
 }
 
-.modal input {
-  width: 100%;
-}
-
 .modal footer {
   display: flex;
   justify-content: end;
@@ -93,4 +89,54 @@ body {
 ::backdrop {
   background-color: #000;
   opacity: 0.5;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8em;
+}
+
+.field label {
+  margin-right: 0.5em;
+}
+
+.rating {
+  --star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
+  --stars: 5;
+  --starsize: 3rem;
+  --value: 0;
+  --w: calc(var(--stars) * var(--starsize));
+  --x: calc(100% * (var(--value) / var(--stars)));
+
+  block-size: var(--starsize);
+  inline-size: var(--w);
+  position: relative;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+}
+
+.rating:focus,
+.rating:focus-visible {
+  outline: none;
+}
+
+.rating::-moz-range-track,
+.rating::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    gold 0 var(--x),
+    rgba(100, 100, 100, 0.15) 0 var(--x)
+  );
+  block-size: 100%;
+  mask: repeat left center/var(--starsize) var(--star);
+  -webkit-mask: repeat left center/var(--starsize) var(--star);
+}
+
+.rating::-moz-range-thumb,
+.rating::-webkit-slider-thumb {
+  height: var(--starsize);
+  opacity: 0;
+  width: var(--starsize);
+  -webkit-appearance: none;
 }

@@ -2,9 +2,13 @@ import * as Arr from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 import {constVoid, pipe} from 'fp-ts/function';
 import {useState} from 'react';
+import {Rating} from '../App/Rating';
 import type {Model, Brand} from './model';
 
 type OriPhoto = Model['photos'][number];
+
+export const RATES = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5] as const;
+export type Rating = (typeof RATES)[number];
 
 export interface Photo extends Omit<OriPhoto, 'albumId'> {
   album: string;
@@ -36,9 +40,6 @@ export const useDB = (model: Model): DB => {
       )
   };
 };
-
-const RATES = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5] as const;
-type Rating = (typeof RATES)[number];
 
 const make = (model: Model): Photo[] => {
   const findInAlbums = find(model.albums);

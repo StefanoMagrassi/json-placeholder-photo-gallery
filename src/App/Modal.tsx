@@ -1,7 +1,8 @@
-import {isSome, none} from 'fp-ts/Option';
-import {useRef, type FC, useEffect, useContext} from 'react';
+import * as O from 'fp-ts/Option';
+import {type FC, useRef, useEffect, useContext} from 'react';
 import type {Photo} from '../DB/db';
 import {CurrentPhotoContext} from './Context';
+import {Rating} from './Rating';
 
 interface ModalProps {
   onSave: (photo: Photo) => void;
@@ -10,11 +11,12 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = ({onSave}) => {
   const ref = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const ratingRef = useRef<Photo['rating']>(O.none);
 
   const {currentPhoto: photo, setCurrentPhoto} =
     useContext(CurrentPhotoContext);
 
-  const hasPhoto = isSome(photo);
+  const hasPhoto = O.isSome(photo);
 
   useEffect(
     () => (hasPhoto ? ref.current?.showModal() : ref.current?.close()),
@@ -33,19 +35,26 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
 
           <form>
             <section>
+              <div className="field">
+                <label htmlFor="title">Title:</label>
+                <input
+                  ref={inputRef}
+                  id="title"
+                  type="text"
+                  name="title"
+                  style={{width: '100%'}}
+                  defaultValue={photo.value.title}
+                />
+              </div>
+
+              <Rating
+                value={photo.value.rating}
+                onChange={v => {
+                  ratingRef.current = O.some(v);
+                }}
+              />
+
               <dl className="meta">
-                <dt>
-                  <label htmlFor="title">Title:</label>
-                </dt>
-                <dd>
-                  <input
-                    ref={inputRef}
-                    id="title"
-                    type="text"
-                    name="title"
-                    defaultValue={photo.value.title}
-                  />
-                </dd>
                 <dt>Album:</dt>
                 <dd>{photo.value.album}</dd>
                 <dt>User name:</dt>
@@ -56,15 +65,16 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
             </section>
 
             <footer>
-              <button onClick={() => setCurrentPhoto(none)}>Close</button>
+              <button onClick={() => setCurrentPhoto(O.none)}>Close</button>
               <button
                 onClick={() => {
                   onSave({
                     ...photo.value,
-                    title: inputRef.current?.value ?? photo.value.title
+                    title: inputRef.current?.value ?? photo.value.title,
+                    rating: ratingRef.current
                   });
 
-                  return setCurrentPhoto(none);
+                  return setCurrentPhoto(O.none);
                 }}
               >
                 Save
