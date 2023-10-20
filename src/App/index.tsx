@@ -1,5 +1,3 @@
-import './style.css';
-
 import type {FC} from 'react';
 import {getData} from '../DB/data';
 import {useRemote} from '../Http';
