@@ -8,12 +8,15 @@ interface ListProps {
   pagination: Pagination;
 }
 
-export const List: FC<ListProps> = ({photos, pagination}) => (
-  <ul className="photos">
-    {paginate(photos)(pagination).map(photo => (
-      <li key={photo.id}>
-        <Card photo={photo} />
-      </li>
-    ))}
-  </ul>
-);
+export const List: FC<ListProps> = ({photos, pagination}) =>
+  photos.length ? (
+    <ul className="photos">
+      {paginate(photos)(pagination).map(photo => (
+        <li key={photo.id}>
+          <Card photo={photo} />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div className="no-data">No results</div>
+  );

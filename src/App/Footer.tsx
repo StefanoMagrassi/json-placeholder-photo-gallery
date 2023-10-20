@@ -18,7 +18,7 @@ export const Footer: FC<FooterProps> = ({
   const pages = Math.floor(total / size);
 
   return (
-    <footer className="pagination">
+    <footer className="pagination sticky">
       <div>
         <button disabled={page === 1} onClick={() => onPageChange(page - 1)}>
           previous
