@@ -1,10 +1,12 @@
+import * as O from 'fp-ts/Option';
+import {pipe} from 'fp-ts/function';
 import {type FC, useState} from 'react';
 import {useDB} from '../DB/db';
 import type {Model} from '../DB/model';
 import type {Pagination} from '../Libs/pagination';
 import {CurrentPhotoProvider} from './Context';
 import {Footer} from './Footer';
-import {Header} from './Header';
+import {type Filter, Header} from './Header';
 import {List} from './List';
 import {Modal} from './Modal';
 
@@ -18,34 +20,38 @@ export const Photos: FC<PhotosProps> = ({model}) => {
   const {state, updatePhoto} = useDB(model);
   const [pagination, setPagination] = useState<Pagination>(DEFAULT_PAGINATION);
 
-  const [photos, setPhotos] = useState(state);
+  const [filter, setFilter] = useState<O.Option<Filter>>(O.none);
 
-  const refreshWith = (s: typeof photos): void => {
-    setPhotos(s);
+  const refreshWith = (f: O.Option<Filter>): void => {
+    setFilter(f);
     setPagination(DEFAULT_PAGINATION);
   };
+
+  const photos = pipe(
+    filter,
+    O.map(([filterBy, value]) =>
+      state.filter(p => {
+        switch (filterBy) {
+          case 'album':
+            return p.album.includes(value);
+
+          case 'photo':
+            return p.title.includes(value);
+
+          case 'user':
+            return p.user.name.includes(value);
+        }
+      })
+    ),
+    O.getOrElse(() => state)
+  );
 
   return (
     <CurrentPhotoProvider>
       <main>
         <Header
-          onApply={([filterBy, value]) => {
-            refreshWith(
-              state.filter(p => {
-                switch (filterBy) {
-                  case 'album':
-                    return p.album.includes(value);
-
-                  case 'photo':
-                    return p.title.includes(value);
-
-                  case 'user':
-                    return p.user.name.includes(value);
-                }
-              })
-            );
-          }}
-          onReset={() => refreshWith(state)}
+          onApply={f => refreshWith(O.some(f))}
+          onReset={() => refreshWith(O.none)}
         />
 
         <List photos={photos} pagination={pagination} />
