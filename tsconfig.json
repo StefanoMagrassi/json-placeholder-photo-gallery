@@ -23,5 +23,5 @@
     "strict": true,
     "target": "ES6"
   },
-  "include": ["./src"]
+  "include": ["./src", "./jest.config.ts", "./setup.test.ts"]
 }

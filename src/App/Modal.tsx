@@ -24,7 +24,7 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
   );
 
   return (
-    <dialog ref={ref} className="modal">
+    <dialog ref={ref} className="modal" open={hasPhoto}>
       {hasPhoto && (
         <>
           <img
@@ -33,7 +33,7 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
             src={photo.value.url}
           />
 
-          <form>
+          <form onSubmit={e => e.preventDefault()}>
             <section>
               <div className="field">
                 <label htmlFor="title">Title:</label>
@@ -54,7 +54,7 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
                 }}
               />
 
-              <dl className="meta">
+              <dl className="meta" data-testid="modal-meta">
                 <dt>Album:</dt>
                 <dd>{photo.value.album}</dd>
                 <dt>User name:</dt>
@@ -65,12 +65,16 @@ export const Modal: FC<ModalProps> = ({onSave}) => {
             </section>
 
             <footer>
-              <button onClick={() => setCurrentPhoto(O.none)}>Close</button>
+              <button type="button" onClick={() => setCurrentPhoto(O.none)}>
+                Close
+              </button>
               <button
+                type="submit"
                 onClick={() => {
                   onSave({
                     ...photo.value,
-                    title: inputRef.current?.value ?? photo.value.title,
+                    title:
+                      /* istanbul ignore next */ inputRef.current?.value ?? '', // ref current value is always defined
                     rating: ratingRef.current
                   });
 

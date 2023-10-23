@@ -21,7 +21,7 @@ export const Card: FC<CardProps> = ({photo}) => {
       </aside>
 
       <section>
-        <dl className="meta">
+        <dl className="meta" data-testid="photo-meta">
           <dt>Title:</dt>
           <dd>{photo.title}</dd>
           <dt>Album:</dt>

@@ -3,7 +3,7 @@ import {constVoid} from 'fp-ts/function';
 import {type FC, type PropsWithChildren, createContext, useState} from 'react';
 import type {Photo} from '../DB/db';
 
-interface CurrentPhotoContext {
+export interface CurrentPhotoContext {
   currentPhoto: O.Option<Photo>;
   setCurrentPhoto: (photo: O.Option<Photo>) => void;
 }

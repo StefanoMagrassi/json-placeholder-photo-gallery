@@ -12,7 +12,7 @@ export const List: FC<ListProps> = ({photos, pagination}) =>
   photos.length ? (
     <ul className="photos">
       {paginate(photos)(pagination).map(photo => (
-        <li key={photo.id}>
+        <li key={`card_${photo.id}`} data-photo-id={photo.id}>
           <Card photo={photo} />
         </li>
       ))}

@@ -61,7 +61,9 @@ export const Photos: FC<PhotosProps> = ({model}) => {
           size={pagination.size}
           total={photos.length}
           onPageChange={page => setPagination(({size}) => ({page, size}))}
-          onSizeChange={size => setPagination(({page}) => ({page, size}))}
+          onSizeChange={size =>
+            setPagination({page: DEFAULT_PAGINATION.page, size})
+          }
         />
 
         <Modal onSave={updatePhoto} />

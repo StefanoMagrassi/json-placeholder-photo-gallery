@@ -1,7 +1,7 @@
 {
   "root": true,
 
-  "plugins": ["react"],
+  "plugins": ["react", "testing-library"],
 
   "extends": [
     "plugin:react/recommended",
@@ -9,6 +9,10 @@
     "contactlab/typescript",
     "prettier"
   ],
+
+  "env": {
+    "jest": true
+  },
 
   "rules": {
     // --- ES6
@@ -29,9 +33,30 @@
     "jsdoc/no-multi-asterisks": "off"
   },
 
+  "overrides": [
+    // --- Disable typescript rules for tests files and enables testing-library only for them
+    {
+      "files": ["*.spec.ts*"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        // Disable no-unsafe rules for tests files
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-declaration-merging": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
+      },
+      "extends": ["plugin:testing-library/react"]
+    }
+  ],
+
   "settings": {
     "react": {
       "version": "detect"
-    }
+    },
+
+    "testing-library/custom-renders": "off"
   }
 }

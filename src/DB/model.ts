@@ -10,7 +10,7 @@ export interface Model {
 }
 
 type UserId = Brand<number>;
-const UserId = (id: number): UserId => id as UserId;
+export const UserId = (id: number): UserId => id as UserId;
 
 interface User extends D.TypeOf<typeof User> {}
 const User = D.struct({
@@ -19,11 +19,11 @@ const User = D.struct({
   email: D.string
 });
 
-interface Users extends D.TypeOf<typeof Users> {}
+export interface Users extends D.TypeOf<typeof Users> {}
 export const Users = D.array(User);
 
 type AlbumId = Brand<number>;
-const AlbumId = (id: number): AlbumId => id as AlbumId;
+export const AlbumId = (id: number): AlbumId => id as AlbumId;
 
 interface Album extends D.TypeOf<typeof Album> {}
 const Album = D.struct({
@@ -32,11 +32,11 @@ const Album = D.struct({
   title: D.string
 });
 
-interface Albums extends D.TypeOf<typeof Albums> {}
+export interface Albums extends D.TypeOf<typeof Albums> {}
 export const Albums = D.array(Album);
 
 type PhotoId = Brand<number>;
-const PhotoId = (id: number): PhotoId => id as PhotoId;
+export const PhotoId = (id: number): PhotoId => id as PhotoId;
 
 interface Photo extends D.TypeOf<typeof Photo> {}
 const Photo = D.struct({
@@ -47,5 +47,5 @@ const Photo = D.struct({
   thumbnailUrl: D.string
 });
 
-interface Photos extends D.TypeOf<typeof Photos> {}
+export interface Photos extends D.TypeOf<typeof Photos> {}
 export const Photos = D.array(Photo);

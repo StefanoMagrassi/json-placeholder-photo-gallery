@@ -72,7 +72,7 @@ export const useRemote = <A>(r: Cancellable<A>): Remote<A> => {
         E.match(
           error =>
             signal.aborted ? undefined : setState({type: 'Error', error}),
-          data => (signal.aborted ? undefined : setState({type: 'Data', data}))
+          data => setState({type: 'Data', data})
         )
       );
     }
